@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">app-jokenpo</string>
+    <string-array name="possibilidadeDeJogo">
+        <item>Selecione uma opção</item>
+        <item>Pedra</item>
+        <item>Papel</item>
+        <item>Tesoura</item>
+    </string-array>
+</resources>
