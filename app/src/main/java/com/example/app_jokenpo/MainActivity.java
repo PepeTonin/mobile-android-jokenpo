@@ -35,19 +35,77 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBtnJogarClick (View view) {
+
         String jogoUsuario = spinner.getSelectedItem().toString();
         if (jogoUsuario.equals("Selecione uma opção")) {
             tvResultado.setText("Selecione uma opção válida");
             tvResultado.setVisibility(View.VISIBLE);
         } else {
-            tvJogoOponente.setText(sortearJogo());
+            String textoResultado = "";
+            String jogoOponente = sortearJogo();
+
+            int resultado = verificaVitoria(jogoUsuario, jogoOponente);
+
+            if (resultado == 0){
+                textoResultado = "Empatou";
+            }
+
+            if (resultado == 1){
+                textoResultado = "Você venceu";
+            }
+
+            if (resultado == 2){
+                textoResultado = "Você perdeu";
+            }
+
+            tvJogoOponente.setText(jogoOponente);
             tvJogoOponente.setVisibility(View.VISIBLE);
+
+            tvResultado.setText(textoResultado);
+            tvResultado.setVisibility(View.VISIBLE);
         }
+    }
+
+    public int verificaVitoria(String usuario, String oponente){
+        if (usuario.equals("Pedra")) {
+            if (oponente.equals("Pedra")) {
+                return 0;
+            }
+            if (oponente.equals("Papel")) {
+                return 2;
+            }
+            if (oponente.equals("Tesoura")) {
+                return 1;
+            }
+        }
+        if (usuario.equals("Papel")){
+            if (oponente.equals("Pedra")){
+                return 1;
+            }
+            if (oponente.equals("Papel")){
+                return 0;
+            }
+            if (oponente.equals("Tesoura")){
+                return 2;
+            }
+        }
+        if (usuario.equals("Tesoura")) {
+            if (oponente.equals("Pedra")) {
+                return 2;
+            }
+            if (oponente.equals("Papel")) {
+                return 1;
+            }
+            if (oponente.equals("Tesoura")) {
+                return 0;
+            }
+        }
+        return 0;
     }
 
     public String sortearJogo () {
         String[] jogos = {"Pedra", "Papel", "Tesoura"};
-        int randomInt = (int) Math.random() * (3);
+        int randomInt = (int) (Math.random() * (3));
         return jogos[randomInt];
     }
 }
